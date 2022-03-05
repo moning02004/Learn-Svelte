@@ -1,6 +1,7 @@
 <script>
-    import {userStatus} from "../stores"
-import DetailView from "./DetailView.svelte";
+    import {userStatus, userInfo} from "../stores"
+    import {USER_INFO} from "../models/User"
+    import DetailView from "./DetailView.svelte";
     
     let username = ""
     let password = ""
@@ -12,7 +13,16 @@ import DetailView from "./DetailView.svelte";
 
     function loginCheck() {
         if (password !== "" && username !== "") {
+            let user = USER_INFO.filter(x => x.username === username)
+            if (! user) {
+                alert("존재하지 않습니다.")
+            }
+            if (user && user[0].password !== password) {
+                alert("비밀번호가 다릅니다.")
+                return
+            }
             userStatus.set("O")
+            userInfo.set(user[0])
             return
         }
         userStatus.set("X")

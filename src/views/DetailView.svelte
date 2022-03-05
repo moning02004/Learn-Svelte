@@ -1,19 +1,20 @@
 <script>
-    import { userStatus } from "../stores";
+    import { userInfo } from "../stores";
     
     let detail = "";
-    userStatus.subscribe(value => {
-        if (value === "O") {
-            detail = "환영합니다. 이제 회원 정보를 뿌려줄 수 있도록 모델 정보를 목업 데이터로 생성하자."
-        } else {
-            detail = ""
+    let unsubscribe = userInfo.subscribe(value => {
+        if (value) {
+            detail = value
+            console.log(detail)
         }
     })
 </script>
 
-<div class="user-detail-box">
-    {detail}
-</div>
+{#if detail}
+    <div class="user-detail-box">
+        {detail.name} 님 환영합니다.
+    </div>
+{/if}
 
 <style>
     .user-detail-box {
