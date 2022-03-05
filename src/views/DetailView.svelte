@@ -1,19 +1,22 @@
 <script>
-    import {push} from 'svelte-spa-router'
-    export let params = {};
-
-    const onBack = () => {
-        history.back()
-    }
-
-    function gotoMain() {
-        push("/")
-    }
+    import { userStatus } from "../stores";
+    
+    let detail = "";
+    userStatus.subscribe(value => {
+        if (value === "O") {
+            detail = "환영합니다."
+        } else {
+            detail = ""
+        }
+    })
 </script>
 
-<div>
-    {params.id} 번째 글 입니다.
-
-    <button on:click={gotoMain}>메인으로</button>
-    <button on:click={onBack}>뒤로가기</button>
+<div class="user-detail-box">
+    {detail}
 </div>
+
+<style>
+    .user-detail-box {
+        padding: 30px;
+    }
+</style>
