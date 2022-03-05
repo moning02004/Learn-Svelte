@@ -19,4 +19,4 @@
     .user-detail-box {
         padding: 30px;
     }
-</style>
+</style> 
